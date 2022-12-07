@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
-public class MonthRecord extends ArrayList<MonthRecord> {
+public class
+MonthRecord extends ArrayList<MonthRecord> {
     String itemName; //название товара;
     boolean isExpense; //  трата (TRUE) или доход (FALSE)
     int quantity; // количество закупленного или проданного товара
