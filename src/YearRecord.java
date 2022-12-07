@@ -10,4 +10,15 @@ public class YearRecord {
         this.isExpense = isExpense;
     }
 
+    public int getMonth() {
+        return month;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public boolean getIsExpense() {
+        return isExpense;
+    }
 }

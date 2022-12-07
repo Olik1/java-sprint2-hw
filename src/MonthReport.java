@@ -21,6 +21,7 @@ public class MonthReport { // храним данные по месячным о
             String content = Reader.readFileContents(path);
             if (content == null) {
                 System.out.println("Ошибка считывания, проверьте путь: " + path);
+                return;
             }
             String[] lines = content.split("\r?\n"); // ["1 строка", "2 строка"...]
             //разбиваем по строкам
@@ -38,19 +39,15 @@ public class MonthReport { // храним данные по месячным о
         }
     }
 
-    public void printStatistic() {
-        for (int i = 0; i < this.month; i++) {
-            ArrayList<MonthRecord> monthsArr = allMonths.get(i);
-            System.out.println("Самый прибыльный товар за месяц: " + i);
-        }
-    }
+
 
     public int getExpence(int month) { //посчитать расходы за месяц, трата (TRUE)
-        ArrayList<MonthRecord> records = monthRecords.get(month);
+        ArrayList<MonthRecord> records = allMonths.get(month);
         int sumExpence = 0;
         for (MonthRecord record : records) {
             int sum = record.getSumOfOne();
             int price = record.getQuantity();
+            boolean isExpense = record.isExpense;
             if (isExpense) {
                 sumExpence += sum * price;
             }
@@ -58,27 +55,32 @@ public class MonthReport { // храним данные по месячным о
         return sumExpence;
     }
 
-    public int getIncome() { //рассчитать доход за месяц, доход (FALSE) КАК ПРАВИЛЬНО СЧИТАТЬ ДОХОД ЗА МЕСЯЦ ЧЕРЕЗ МАПУ ИЛИ СПИСОК?
+    public int getIncome(int month) { //рассчитать доход за месяц, доход (FALSE)
+        ArrayList<MonthRecord> records = allMonths.get(month);
         int sumIncome = 0;
-        for (MonthRecord monthRecord : monthRecords) {
-            if (!isExpense) {
-                sumIncome = sumIncome + (monthRecord.sumOfOne * monthRecord.quantity);
+        for (MonthRecord record : records) {
+            int income = record.sumOfOne;
+            int price = record.getQuantity();
+            boolean isExpence = record.getIsExpense();
+            if(!isExpence) {
+                sumIncome += income * price;
             }
         }
         return sumIncome;
     }
 
-    public String getTopProduct(int month) { // КАК ОТСОРТИРОВАТЬ ПО МЕСЯЦУ??
+    public String getTopProduct(int month) { // самый прибыльный продукт
         //самый прибыльный товар, товары могут повторяться, надо суммировать в мапе
         HashMap<String,Integer> freqs = new HashMap<>(); //название товара и количество продаж
         for (MonthRecord monthRecord : monthRecords) { // пройтись по всем товарам и узнать сколько штук купили
            //кладем по ключу -> название товара количество штук которых мы продали
-            freqs.put(monthRecord.itemName, freqs.getOrDefault(monthRecord.itemName, 0) + monthRecord.quantity); //надо учесть что товар может повториться -> через freqs.get(monthRecord.itemName)
+            freqs.put(monthRecord.itemName, freqs.getOrDefault(monthRecord.itemName, 0) + monthRecord.quantity);
+            //надо учесть что товар может повториться -> через freqs.get(monthRecord.itemName)
             // надо учесть случай когда товар не лежит в мапе get + null = nullpointerexception -> getOrDefault
         }
         //находим максимум по множеству ключей
         String maxName = null;
-        for (String name : freqs.keySet()) {
+        for (String name : freqs.keySet()) { //пробегаемся по товарам по ключам мапы
             if(maxName == null) { //если не было никакого товара -> то  найденный товар max
                 maxName = name;
                 continue;
@@ -89,6 +91,13 @@ public class MonthReport { // храним данные по месячным о
         }
         return maxName;
     }
+    public void showMonthsStatistic() {
 
+
+            System.out.println("Информация за " + "i" + "-й месяц:");
+            System.out.println("Самый прибыльный товар за месяц: "  + ". Продано на " +   " рублей.");
+            System.out.println("Самая большая трата в месяце: "   + ". Потрачено "
+                    + " рублей.\n");
+        }
 
 }
