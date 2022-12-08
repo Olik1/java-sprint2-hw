@@ -84,6 +84,7 @@ public class MonthReport { // храним данные по месячным о
         }
         return sumExpence;
     }
+
     public int getIncome() { //посчитать расходы за месяц, трата (TRUE)
         int sumIncome = 0;
         for (String name : incomeByProduct.keySet()) {
@@ -91,6 +92,7 @@ public class MonthReport { // храним данные по месячным о
         }
         return sumIncome;
     }
+
     public boolean isEmpty() {
         return incomeByProduct.isEmpty() && expenceByProduct.isEmpty();
     }
