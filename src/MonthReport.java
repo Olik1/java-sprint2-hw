@@ -6,7 +6,6 @@ public class MonthReport { // храним данные по месячным о
     public Integer year;
 
     ArrayList<MonthRecord> monthRecords = new ArrayList<>();
-    //HashMap<Integer, ArrayList<MonthRecord>> allMonths = new HashMap<>();
     HashMap<String, Integer> expenceByProduct = new HashMap<>();
     HashMap<String, Integer> incomeByProduct = new HashMap<>();
 

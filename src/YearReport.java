@@ -32,6 +32,7 @@ public class YearReport {
                 incomeByMonth.put(month, amount);
             }
         }
+        System.out.println("Годовой отчет считан успешно");
     }
     public void showStatistic() { //распечатываем статистику
         System.out.println("Приведенная статистика за отчетный период: " + year);

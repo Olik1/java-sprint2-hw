@@ -13,20 +13,4 @@ MonthRecord extends ArrayList<MonthRecord> {
         this.quantity = quantity;
         this.sumOfOne = sumOfOne;
     }
-
-    public String getItemName() {
-        return itemName;
-    }
-
-    public boolean getIsExpense() {
-        return isExpense;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public int getSumOfOne() {
-        return sumOfOne;
-    }
 }
